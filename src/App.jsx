@@ -81,6 +81,57 @@ const metrics = [
   { value: '8', label: 'technology pillars' },
 ];
 
+const socialLinks = [
+  {
+    name: 'LinkedIn',
+    href: '#',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+        <path
+          d="M6.94 7.5A1.94 1.94 0 1 1 3.06 7.5a1.94 1.94 0 0 1 3.88 0ZM3.5 9.75h2.88V20.5H3.5V9.75Zm5.07 0h2.75v1.47h.04c.38-.72 1.32-1.47 2.71-1.47 2.9 0 3.44 1.91 3.44 4.39v6.36h-2.88v-5.64c0-1.34-.02-3.07-1.87-3.07-1.88 0-2.17 1.47-2.17 2.98v5.73H8.57V9.75Z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: 'X',
+    href: '#',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+        <path
+          d="M18.9 3H22l-6.78 7.75L23 21h-6.63l-5.18-6.24L5.7 21H2.6l7.29-8.34L1 3h6.79l4.71 5.6L18.9 3Zm-1.16 16.42h1.72L7.85 4.79H6.01l11.73 14.63Z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: 'Facebook',
+    href: '#',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+        <path
+          d="M13.5 21v-7h2.34l.35-2.73H13.5V9.53c0-.79.22-1.34 1.37-1.34h1.46V5.74c-.25-.03-1.1-.1-2.09-.1-2.04 0-3.44 1.25-3.44 3.56v2.07H8.6V14h2.2v7h2.7Z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: 'Instagram',
+    href: '#',
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+        <path
+          d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Zm0 1.5A3 3 0 0 0 4.5 7.5v9a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-9a3 3 0 0 0-3-3h-9Zm9.75 1.13a.88.88 0 1 1 0 1.75.88.88 0 0 1 0-1.75ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5A3.5 3.5 0 1 0 12 16a3.5 3.5 0 0 0 0-7Z"
+          fill="currentColor"
+        />
+      </svg>
+    ),
+  },
+];
+
 const heroImage =
   'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80';
 
@@ -569,6 +620,18 @@ function App() {
                 Software, IoT, and automation solutions for organizations that need clearer
                 systems and better visibility.
               </p>
+              <div className="mt-5 flex items-center gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    aria-label={social.name}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white hover:text-teal-700 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-teal-700"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
             </div>
 
             <div>
