@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const services = [
   {
     title: 'Custom software',
@@ -90,18 +92,22 @@ function SectionHeading({ eyebrow, title, description, align = 'left' }) {
 
   return (
     <div className={`max-w-3xl ${alignClass}`}>
-      <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-700">
+      <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-teal-700">
         {eyebrow}
       </span>
-      <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+      <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
         {title}
       </h2>
-      <p className="mt-5 text-base leading-8 text-slate-600 sm:text-lg">{description}</p>
+      <p className="mt-4 text-sm leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
+        {description}
+      </p>
     </div>
   );
 }
 
 function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-stone-50 text-slate-900">
       <div
@@ -121,21 +127,51 @@ function App() {
       />
 
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/75 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-5">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4 lg:gap-6 lg:py-5">
           <a href="#home" className="flex items-center gap-3">
-            <span className="grid h-11 w-11 place-items-center rounded-2xl border border-cyan-200 bg-cyan-50 font-display text-lg font-bold text-cyan-700 shadow-sm">
+            <span className="grid h-10 w-10 place-items-center rounded-2xl border border-teal-200 bg-teal-50 font-display text-base font-bold text-teal-700 shadow-sm sm:h-11 sm:w-11 sm:text-lg">
               D
             </span>
-            <span className="font-display text-lg font-semibold tracking-tight text-slate-900">
+            <span className="font-display text-base font-semibold tracking-tight text-slate-900 sm:text-lg">
               Ditronics
-              <span className="mt-1 block text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">
-                Software · IoT · Systems
-              </span>
             </span>
           </a>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:justify-end">
-            <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600 sm:gap-x-7">
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white p-3 text-slate-700 shadow-sm transition hover:bg-slate-50 lg:hidden"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMobileMenuOpen((value) => !value)}
+          >
+            {mobileMenuOpen ? (
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+                <path
+                  d="M6 6l12 12M18 6 6 18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+                <path
+                  d="M4 6h16M4 12h16M4 18h16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                />
+              </svg>
+            )}
+          </button>
+
+          <div className="hidden items-center gap-4 lg:flex lg:justify-end">
+            <nav className="flex flex-wrap gap-x-7 gap-y-2 text-sm text-slate-600">
               <a className="transition hover:text-slate-900" href="#services">
                 Services
               </a>
@@ -147,47 +183,85 @@ function App() {
               </a>
             </nav>
             <a
-              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 sm:self-start"
               href="#contact"
+              >
+                Start a project
+              </a>
+          </div>
+        </div>
+
+        <div
+          id="mobile-menu"
+          className={`border-t border-slate-200/80 bg-white/95 px-4 py-4 shadow-lg backdrop-blur-xl lg:hidden ${
+            mobileMenuOpen ? 'block' : 'hidden'
+          }`}
+        >
+          <nav className="mx-auto flex max-w-7xl flex-col gap-2 text-sm font-medium text-slate-700">
+            <a
+              className="rounded-2xl px-4 py-3 transition hover:bg-slate-50 hover:text-slate-900"
+              href="#services"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Services
+            </a>
+            <a
+              className="rounded-2xl px-4 py-3 transition hover:bg-slate-50 hover:text-slate-900"
+              href="#solutions"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Sectors
+            </a>
+            <a
+              className="rounded-2xl px-4 py-3 transition hover:bg-slate-50 hover:text-slate-900"
+              href="#process"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Process
+            </a>
+            <a
+              className="mt-2 inline-flex items-center justify-center rounded-full bg-slate-900 px-4 py-3 font-semibold text-white transition hover:bg-slate-800"
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
             >
               Start a project
             </a>
-          </div>
+          </nav>
         </div>
       </header>
 
       <main id="home">
-        <section className="mx-auto grid max-w-7xl gap-12 px-4 pb-12 pt-10 sm:px-6 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-16 lg:pt-16">
+        <section className="mx-auto grid max-w-7xl gap-10 px-4 pb-12 pt-8 sm:px-6 sm:pt-10 lg:grid-cols-[1fr_0.96fr] lg:items-center lg:gap-16 lg:pt-16">
           <div className="order-2 lg:order-1">
-            <span className="inline-flex items-center gap-3 rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-700">
+            <span className="inline-flex items-center gap-3 rounded-full border border-teal-200 bg-teal-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-teal-700">
               Built for connected operations
             </span>
 
-            <h1 className="mt-6 max-w-3xl font-display text-5xl font-bold tracking-[-0.06em] text-slate-900 sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-3xl font-display text-4xl font-bold leading-[1.02] tracking-[-0.05em] text-slate-900 sm:text-5xl lg:text-7xl">
               Build software and systems that feel simple, fast, and reliable.
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:mt-6 sm:text-lg sm:leading-8">
               Ditronics creates digital products, IoT platforms, and automation tools with the
               kind of clean product experience you expect from top-tier tech companies.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3.5 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+                className="inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-6 py-3.5 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 sm:w-auto"
               >
                 Talk to Ditronics
               </a>
               <a
                 href="#services"
-                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 font-semibold text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50"
+                className="hidden w-full items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3.5 font-semibold text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-slate-50 sm:inline-flex sm:w-auto"
               >
                 Explore services
               </a>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <div className="mt-8 hidden gap-3 sm:grid sm:grid-cols-3">
               {metrics.map((metric) => (
                 <article
                   key={metric.label}
@@ -201,15 +275,15 @@ function App() {
               ))}
             </div>
 
-            <div className="mt-8 rounded-[1.75rem] border border-slate-200 bg-white/80 p-5 shadow-[0_18px_60px_rgba(15,23,42,0.05)]">
-              <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+            <div className="mt-8 hidden rounded-[1.75rem] border border-slate-200 bg-white/80 p-4 shadow-[0_18px_60px_rgba(15,23,42,0.05)] sm:block sm:p-5">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 sm:text-xs sm:tracking-[0.3em]">
                 Trusted by teams in manufacturing, logistics, and smart infrastructure
               </div>
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
                 {['Manufacturing', 'Smart buildings', 'Logistics', 'Energy monitoring'].map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-slate-200 bg-stone-50 px-4 py-2 text-sm font-medium text-slate-700"
+                    className="rounded-full border border-slate-200 bg-stone-50 px-3 py-2 text-xs font-medium text-slate-700 sm:px-4 sm:text-sm"
                   >
                     {item}
                   </span>
@@ -219,14 +293,14 @@ function App() {
           </div>
 
           <div className="order-1 lg:order-2">
-            <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_30px_90px_rgba(15,23,42,0.12)]">
-              <div className="rounded-[1.6rem] border border-slate-200 bg-slate-950 p-5 text-white sm:p-6">
-                <div className="flex items-center justify-between gap-4">
+            <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-[0_30px_90px_rgba(15,23,42,0.12)] sm:p-4">
+              <div className="rounded-[1.6rem] border border-slate-200 bg-slate-950 p-4 text-white sm:p-6">
+                <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
                       Product preview
                     </div>
-                    <div className="mt-2 font-display text-2xl font-bold tracking-tight">
+                    <div className="mt-2 font-display text-xl font-bold tracking-tight sm:text-2xl">
                       Connected operations dashboard
                     </div>
                   </div>
@@ -235,7 +309,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-[1.2fr_0.8fr]">
+                <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-[1.2fr_0.8fr]">
                   <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
                     <div className="flex items-center justify-between text-sm text-slate-300">
                       <span>System health</span>
@@ -258,14 +332,14 @@ function App() {
                     </div>
                   </div>
 
-                  <div className="grid gap-4">
+                  <div className="grid gap-4 sm:gap-4">
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
                       <div className="text-sm text-slate-300">Devices online</div>
-                      <div className="mt-2 font-display text-3xl font-bold">412</div>
+                      <div className="mt-2 font-display text-2xl font-bold sm:text-3xl">412</div>
                     </div>
                     <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
                       <div className="text-sm text-slate-300">Alerts resolved</div>
-                      <div className="mt-2 font-display text-3xl font-bold">1,284</div>
+                      <div className="mt-2 font-display text-2xl font-bold sm:text-3xl">1,284</div>
                     </div>
                   </div>
                 </div>
@@ -298,17 +372,17 @@ function App() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 pb-6 sm:px-6">
-          <div className="rounded-[2rem] border border-slate-200 bg-white/80 px-5 py-5 shadow-sm sm:px-6">
+        <section className="mx-auto hidden max-w-7xl px-4 pb-6 sm:block sm:px-6">
+          <div className="rounded-[2rem] border border-slate-200 bg-white/80 px-4 py-5 shadow-sm sm:px-6">
             <div className="grid gap-4 md:grid-cols-[auto_1fr] md:items-center">
               <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
                 Focus areas
               </div>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {capabilities.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-slate-200 bg-stone-50 px-4 py-2 text-sm font-medium text-slate-700"
+                    className="rounded-full border border-slate-200 bg-stone-50 px-3 py-2 text-xs font-medium text-slate-700 sm:px-4 sm:text-sm"
                   >
                     {item}
                   </span>
@@ -329,24 +403,26 @@ function App() {
             {services.map((service) => (
               <article
                 key={service.title}
-                className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:border-cyan-200"
+                className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_20px_70px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:border-cyan-200 sm:p-6"
               >
                 <div className="flex items-center justify-between gap-4">
-                  <div className="inline-flex rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-700">
-                    {service.accent}
-                  </div>
+                    <div className="inline-flex rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-teal-700">
+                      {service.accent}
+                    </div>
                   <div className="h-px flex-1 bg-slate-200" />
                 </div>
-                <h3 className="mt-5 font-display text-2xl font-bold text-slate-900">{service.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-slate-600">{service.description}</p>
+                <h3 className="mt-5 font-display text-xl font-bold text-slate-900 sm:text-2xl">
+                  {service.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 sm:mt-4">{service.description}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="solutions" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
+        <section id="solutions" className="mx-auto hidden max-w-7xl px-4 py-14 sm:block sm:px-6 lg:py-20">
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-[0_20px_70px_rgba(15,23,42,0.06)]">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-7">
               <SectionHeading
                 eyebrow="Why Ditronics"
                 title="Built for teams that need speed and technical seriousness."
@@ -370,7 +446,7 @@ function App() {
                   key={sector.name}
                   className="group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.06)]"
                 >
-                  <div className="relative h-60">
+                  <div className="relative h-52 sm:h-60">
                     <img
                       src={sector.image}
                       alt={sector.name}
@@ -382,7 +458,7 @@ function App() {
                       <div className="inline-flex rounded-full border border-white/20 bg-black/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur">
                         Sector
                       </div>
-                      <div className="mt-3 font-display text-2xl font-bold text-white">
+                      <div className="mt-3 font-display text-xl font-bold text-white sm:text-2xl">
                         {sector.name}
                       </div>
                       <p className="mt-2 max-w-xs text-sm leading-6 text-slate-200">
@@ -396,9 +472,9 @@ function App() {
           </div>
         </section>
 
-        <section id="process" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
+        <section id="process" className="mx-auto hidden max-w-7xl px-4 py-14 sm:block sm:px-6 lg:py-20">
           <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-[0_20px_70px_rgba(15,23,42,0.06)]">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-7">
               <SectionHeading
                 eyebrow="Delivery approach"
                 title="A simple process that keeps the system coherent as it grows."
@@ -409,13 +485,15 @@ function App() {
                 {process.map((item) => (
                   <article
                     key={item.step}
-                    className="flex gap-4 rounded-[1.5rem] border border-slate-200 bg-stone-50 p-5"
+                    className="flex flex-col gap-4 rounded-[1.5rem] border border-slate-200 bg-stone-50 p-4 sm:flex-row sm:p-5"
                   >
-                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-cyan-200 bg-cyan-50 font-display text-xl font-bold text-cyan-700">
+                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-teal-200 bg-teal-50 font-display text-lg font-bold text-teal-700 sm:h-14 sm:w-14 sm:text-xl">
                       {item.step}
                     </div>
                     <div>
-                      <h3 className="font-display text-xl font-bold text-slate-900">{item.title}</h3>
+                      <h3 className="font-display text-lg font-bold text-slate-900 sm:text-xl">
+                        {item.title}
+                      </h3>
                       <p className="mt-2 text-sm leading-7 text-slate-600">{item.text}</p>
                     </div>
                   </article>
@@ -431,14 +509,14 @@ function App() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/65 to-slate-950/10" />
 
-              <div className="relative flex h-full min-h-[480px] flex-col justify-end p-7 sm:min-h-[520px]">
+              <div className="relative flex h-full min-h-[360px] flex-col justify-end p-5 sm:min-h-[520px] sm:p-7">
                 <span className="inline-flex w-fit rounded-full border border-white/15 bg-black/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur">
                   What clients get
                 </span>
-                <blockquote className="mt-5 max-w-xl font-display text-3xl font-bold leading-tight tracking-tight text-white">
+                <blockquote className="mt-4 max-w-xl font-display text-2xl font-bold leading-tight tracking-tight text-white sm:mt-5 sm:text-3xl">
                   A partner that can think about code, devices, data, and operations in one system.
                 </blockquote>
-                <p className="mt-4 max-w-lg text-sm leading-7 text-slate-200">
+                <p className="mt-3 max-w-lg text-sm leading-7 text-slate-200 sm:mt-4">
                   That means fewer handoffs, clearer architecture decisions, and implementation that
                   holds up after launch.
                 </p>
@@ -447,17 +525,17 @@ function App() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-r from-cyan-50 via-white to-emerald-50 p-8 shadow-[0_20px_70px_rgba(15,23,42,0.06)] lg:p-10">
+        <section className="mx-auto hidden max-w-7xl px-4 py-14 sm:block sm:px-6 lg:py-20">
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-r from-cyan-50 via-white to-emerald-50 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.06)] sm:p-8 lg:p-10">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-700">
                   Let&apos;s build something useful
                 </span>
-                <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                <h2 className="mt-4 max-w-3xl font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                   Bring software, devices, and data together in one coherent system.
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:mt-5 sm:text-base sm:leading-8">
                   If you want a product team that can move from concept to deployment across software,
                   IoT, and automation, Ditronics can help.
                 </p>
@@ -466,7 +544,7 @@ function App() {
               <a
                 id="contact"
                 href="mailto:hello@ditronics.com"
-                className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3.5 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+                className="inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-6 py-3.5 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 sm:w-auto"
               >
                 hello@ditronics.com
               </a>
@@ -475,10 +553,67 @@ function App() {
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white/60">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-slate-500 sm:px-6 md:flex-row md:items-center md:justify-between">
-          <p>Ditronics. Software, IoT, and technological solutions for modern organizations.</p>
-          <p>Designed with React and Tailwind CSS.</p>
+      <footer className="border-t border-teal-800/30 bg-teal-700 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
+          <div className="grid gap-8 md:grid-cols-3">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-2xl border border-white/20 bg-white/10 font-display text-base font-bold text-white">
+                  D
+                </span>
+                <span className="font-display text-lg font-semibold tracking-tight text-white">
+                  Ditronics
+                </span>
+              </div>
+              <p className="mt-4 max-w-sm text-sm leading-6 text-teal-50/90">
+                Software, IoT, and automation solutions for organizations that need clearer
+                systems and better visibility.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white">
+                Quick Links
+              </h3>
+              <ul className="mt-4 space-y-3 text-sm text-teal-50/90">
+                <li>
+                  <a className="transition hover:text-white" href="#services">
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a className="transition hover:text-white" href="#solutions">
+                    Sectors
+                  </a>
+                </li>
+                <li>
+                  <a className="transition hover:text-white" href="#process">
+                    Process
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-white">
+                Contact
+              </h3>
+              <ul className="mt-4 space-y-3 text-sm text-teal-50/90">
+                <li>
+                  <a className="transition hover:text-white" href="mailto:hello@ditronics.com">
+                    hello@ditronics.com
+                  </a>
+                </li>
+                <li>41.59.115.88</li>
+                <li>skytechonology.dev</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-teal-50/85 sm:flex-row sm:items-center sm:justify-between">
+            <p>Copyright © {new Date().getFullYear()} Ditronics. All rights reserved.</p>
+            <p>Designed with React and Tailwind CSS.</p>
+          </div>
         </div>
       </footer>
     </div>
